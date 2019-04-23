@@ -1,0 +1,24 @@
+{
+    "pid": 6809, 
+    "argv": [
+        "crossbar", 
+        "start", 
+        "--cbdir", 
+        "crossbar", 
+        "--loglevel", 
+        "debug"
+    ], 
+    "options": {
+        "debug_lifecycle": false, 
+        "debug_programflow": false, 
+        "command": "start", 
+        "color": "auto", 
+        "loglevel": "debug", 
+        "logformat": "standard", 
+        "logdir": null, 
+        "logtofile": false, 
+        "cbdir": "/home/cleber/code/vagas-de-emprego/test-01/crossbar", 
+        "config": "config.json", 
+        "shutdownafter": null
+    }
+}
