@@ -13,15 +13,14 @@ ROLES = {
         'caller': {},
     },
     'authmethods': ['ticket'],  # where "anonymous" is the default
-    'authid': config('AUTHID', default='authenticator'),
+    'authid': 'authenticator',
 }
 
 def main():
     port = config('PORT')
-    url = config('WS_URL', default=f'ws://localhost:{port}/ws')
+    url = f'ws://localhost:{port}/ws'
     # url = 'ws://crossbar.dronemapp.com:80/ws'
-    realm = config('REALM', default='world')
-    client = WampClient(url=url, realm=realm, roles=ROLES)
+    client = WampClient(url=url, realm='world', roles=ROLES)
     client.start()
 
     while True:

@@ -90,6 +90,12 @@
                     }
                 }
             ]
+        },
+        {
+            "type": "guest",
+            "executable": "python3",
+            "arguments": ["-m", "authenticator"],
+            "options": {"workdir": ".."}
         }
     ]
 }

@@ -25,8 +25,13 @@ def main():
     realm = 'world'
     client = Client(router=Crossbar(url=url), realm=realm, roles=ROLES)
     client.start()
-    x = client.call('user_authenticate', 'cleber@example.com', 'blebs')
-    # import pdb; pdb.set_trace()
+    x = client.call('sign_up', 'cleber@example.com', 'blebs')
+    if isinstance(x, Error):
+        print('Error:', x.message)
+    else:
+        print(x)
+
+    x = client.call('authenticate', 'cleber@example.com', 'blebs')
     if isinstance(x, Error):
         print('Error:', x.message)
     else:
