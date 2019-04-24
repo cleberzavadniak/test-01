@@ -60,7 +60,7 @@ class LoginForm extends React.Component {
             <label>Senha:</label>
             <input type='password' name='password' value={this.state.password} onChange={this.onChangePassword} />
             <br/>
-            <small class='smooth'>Esqueceu sua senha? Entre em contato com o Suporte.</small>
+            <small className='smooth'>Esqueceu sua senha? Entre em contato com o Suporte.</small>
           </p>
           <p><input type='submit' name='submit' value='Entrar' /></p>
         </form>

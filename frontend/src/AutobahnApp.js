@@ -23,6 +23,9 @@ class AutobahnApp extends React.Component {
     connection.onopen = function(session) {
       that.onConnect(session);
     }
+    connection.onclose = function(reason, details) {
+      that.onDisconnect(reason, details);
+    }
 
     this.state = {
       connected: false,
@@ -47,6 +50,10 @@ class AutobahnApp extends React.Component {
 
   onConnect(session) {
     this.setState({connected: true, status: "Connected", session: session});
+  }
+
+  onDisconnect(reason, details) {
+    this.setState({connected: false, status: "Disconnected: " + reason, session: null});
   }
 
   showSignupForm(event) {
@@ -77,7 +84,7 @@ class AutobahnApp extends React.Component {
     return (
       <div className='autobahn-app disconnected'>
         <h2>Nova plataforma de cotação de apólices</h2>
-        <p>Conectando...</p>
+        <p>{this.state.status}</p>
       </div>
     );
   }
