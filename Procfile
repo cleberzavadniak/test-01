@@ -1,1 +1,1 @@
-worker: bin/backend.sh
+web: bin/backend.sh
