@@ -12,7 +12,7 @@ class AutobahnApp extends React.Component {
     super(props);
 
     var connection = new autobahn.Connection({
-      url: 'ws://127.0.0.1:9090/ws',
+      url: 'wss://cztest01.herokuapp.com:443/ws',
       realm: 'world',
       authmethods: ["ticket"],
       authid: 'frontend',
