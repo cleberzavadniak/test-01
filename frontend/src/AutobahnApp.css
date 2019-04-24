@@ -1,12 +1,11 @@
 .autobahn-app {
   padding: 15px;
-  line-height: 3em;
 }
 
 .autobahn-app.connected {
-  border-bottom: 4px solid green;
+  border-top: 4px solid green;
 }
 
 .autobahn-app.disconnected {
-  border-bottom: 4px solid red;
+  border-top: 4px solid red;
 }

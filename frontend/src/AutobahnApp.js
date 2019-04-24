@@ -1,5 +1,6 @@
 import React from 'react';
 import './AutobahnApp.css';
+
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 
@@ -15,8 +16,13 @@ class AutobahnApp extends React.Component {
       realm: 'world',
       authmethods: ["ticket"],
       authid: 'frontend',
-      onchallenge: this.onchallenge
+      onchallenge: this.onChallenge
     });
+
+    var that = this;
+    connection.onopen = function(session) {
+      that.onConnect(session);
+    }
 
     this.state = {
       connected: false,
@@ -26,17 +32,12 @@ class AutobahnApp extends React.Component {
       signup: false
     };
 
-    this.show_signup_form = this.show_signup_form.bind(this);
-
-    var that = this;
-    connection.onopen = function(session) {
-      that.on_connect(session);
-    }
+    this.showSignupForm = this.showSignupForm.bind(this);
 
     connection.open()
   }
 
-  onchallenge(session, method, extra) {
+  onChallenge(session, method, extra) {
     if (method === "ticket") {
       return 'sou um usuario';
     } else {
@@ -44,17 +45,17 @@ class AutobahnApp extends React.Component {
     }
   }
 
-  on_connect(session) {
+  onConnect(session) {
     this.setState({connected: true, status: "Connected", session: session});
   }
 
-  show_signup_form(event) {
+  showSignupForm(event) {
     event.preventDefault();
     this.setState({signup: true});
   }
 
   render() {
-    if (this.state.session) {
+    if (this.state.connected) {
       if (this.state.signup) {
         return (
           <div className='autobahn-app connected'>
@@ -68,7 +69,7 @@ class AutobahnApp extends React.Component {
         <div className='autobahn-app connected'>
           <h2>Nova plataforma de cotação de apólices</h2>
           <LoginForm session={this.state.session} />
-          <small><a href='#' onClick={this.show_signup_form}>Sou novo aqui</a></small>
+          <small><a href='#' onClick={this.showSignupForm}>Sou novo aqui</a></small>
         </div>
       );
     }
@@ -76,6 +77,7 @@ class AutobahnApp extends React.Component {
     return (
       <div className='autobahn-app disconnected'>
         <h2>Nova plataforma de cotação de apólices</h2>
+        <p>Conectando...</p>
       </div>
     );
   }

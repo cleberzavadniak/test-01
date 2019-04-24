@@ -87,6 +87,17 @@
                                 }
                             }
                         }
+                    },
+                    "web": {
+                        "paths": {
+                            "/": {
+                                "type": "static",
+                                "directory": "../frontend/build",
+                                "options": {"enable_directory_listing": false}
+                            },
+                            "info": {"type": "nodeinfo"},
+                            "ws": {"type": "websocket"}
+                        }
                     }
                 }
             ]

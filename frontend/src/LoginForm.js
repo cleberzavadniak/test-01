@@ -12,20 +12,20 @@ class LoginForm extends React.Component {
       status2: ''
     };
 
-    this.on_change_username = this.on_change_username.bind(this);
-    this.on_change_password = this.on_change_password.bind(this);
-    this.on_submit = this.on_submit.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  on_change_username(event) {
+  onChangeUsername(event) {
     this.setState({username: event.target.value, status: ''});
   }
 
-  on_change_password(event) {
+  onChangePassword(event) {
     this.setState({password: event.target.value, status: ''});
   }
 
-  on_submit(event) {
+  onSubmit(event) {
     event.preventDefault();
 
     var session = this.state['session'];
@@ -51,12 +51,18 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.on_submit}>
-          <label>Usuário:</label>
-          <input type='text' name='username' value={this.state.username} onChange={this.on_change_username} /><br/>
-          <label>Senha:</label>
-          <input type='password' name='password' value={this.state.password} onChange={this.on_change_password} /><br/>
-          <input type='submit' name='submit' value='Entrar' />
+        <form onSubmit={this.onSubmit}>
+          <p>
+            <label>Usuário:</label>
+            <input type='text' name='username' value={this.state.username} onChange={this.onChangeUsername} />
+          </p>
+          <p>
+            <label>Senha:</label>
+            <input type='password' name='password' value={this.state.password} onChange={this.onChangePassword} />
+            <br/>
+            <small class='smooth'>Esqueceu sua senha? Entre em contato com o Suporte.</small>
+          </p>
+          <p><input type='submit' name='submit' value='Entrar' /></p>
         </form>
         <div className='status'>{this.state.status}</div>
         <div className='status2'>{this.state.status2}</div>

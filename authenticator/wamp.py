@@ -12,10 +12,8 @@ class WampClient(Client):
 
     @callee
     def authenticate(self, username, password):
-        print('authenticate:', username)
         return self.authenticator.authenticate(username, password)
 
     @callee
     def sign_up(self, username, password):
-        print('sign_up:', username)
         return self.authenticator.sign_up(username, password)

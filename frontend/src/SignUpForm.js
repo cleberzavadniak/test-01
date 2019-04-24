@@ -13,27 +13,27 @@ class SignUpForm extends React.Component {
       success: null
     };
 
-    this.on_change_username = this.on_change_username.bind(this);
-    this.on_change_password = this.on_change_password.bind(this);
-    this.on_submit = this.on_submit.bind(this);
-    this.go_back = this.go_back.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
-  on_change_username(event) {
+  onChangeUsername(event) {
     this.setState({
       username: event.target.value,
       status: ''
     });
   }
 
-  on_change_password(event) {
+  onChangePassword(event) {
     this.setState({
       password: event.target.value,
       status: ''
     });
   }
 
-  on_submit(event) {
+  onSubmit(event) {
     event.preventDefault();
 
     var session = this.state['session'];
@@ -47,8 +47,8 @@ class SignUpForm extends React.Component {
       var message = response.kwargs.message;
 
       that.setState({
-        confirmation_token: message.token,
-        user_id: message.id,
+        confirmationToken: message.token,
+        userId: message.id,
         status: "",
         success: true
       });
@@ -59,7 +59,7 @@ class SignUpForm extends React.Component {
     });
   }
 
-  go_back(event) {
+  goBack(event) {
     event.preventDefault();
     this.state.parent.setState({signup: false});
   }
@@ -75,10 +75,10 @@ class SignUpForm extends React.Component {
             para confirmar sua conta.
           </p>
           <p>
-            O token <strong>de confirmação</strong> seria o {this.state.confirmation_token}.
+            O token <strong>de confirmação</strong> seria o {this.state.confirmationToken}.
           </p>
           <p>
-            Mas, por ora, basta você <a href='#' onClick={this.go_back}>clicar aqui</a> e
+            Mas, por ora, basta você <a href='#' onClick={this.goBack}>clicar aqui</a> e
             experimentar logar-se usando as credenciais que acabou de criar.
           </p>
           <div className='status'>{this.state.status}</div>
@@ -89,13 +89,18 @@ class SignUpForm extends React.Component {
     return (
       <div>
         <h3>Criar nova conta</h3>
-        <form onSubmit={this.on_submit}>
-          <label>Usuário:</label>
-          <input type='text' name='username' value={this.state.username} onChange={this.on_change_username} /><br/>
-          <label>Senha:</label>
-          <input type='password' name='password' value={this.state.password} onChange={this.on_change_password} /><br/>
-          <input type='submit' name='submit' value='Criar' />
+        <form onSubmit={this.onSubmit}>
+          <p>
+            <label>Usuário:</label>
+            <input type='text' name='username' value={this.state.username} onChange={this.onChangeUsername} /><br/>
+          </p>
+          <p>
+            <label>Senha:</label>
+            <input type='password' name='password' value={this.state.password} onChange={this.onChangePassword} /><br/>
+          </p>
+          <p><input type='submit' name='submit' value='Criar' /></p>
         </form>
+        <p><small><a href='#' onClick={this.goBack}>Voltar</a></small></p>
         <div className='status'>{this.state.status}</div>
       </div>
     );

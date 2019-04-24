@@ -1,1 +1,1 @@
-worker: crossbar start --cbdir crossbar
+worker: bin/backend.sh
