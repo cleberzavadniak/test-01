@@ -1,4 +1,5 @@
 import datetime
+from uuid import uuid4
 
 from cached_property import cached_property
 from pbkdf2 import crypt
@@ -28,12 +29,24 @@ class Authenticator:
 
         raise Exception('Not found')
 
+    def generate_token(self):
+        return str(uuid4()).replace('-', '')
+
     def sign_up(self, username, password):
         user = self.db['users'].find_one(username=username)
         if user is not None:
             raise Exception('Another user with the same username already exists')
 
         hashed_password = self.hash_password(password)
+        token = self.generate_token()
 
-        primary_key_value = self.db['users'].insert({'username': username, 'password': hashed_password})
-        return primary_key_value
+        primary_key_value = self.db['users'].insert({
+            'username': username,
+            'password': hashed_password,
+            'token': token
+        })
+
+        return {
+            'id': primary_key_value,
+            'token': token
+        }

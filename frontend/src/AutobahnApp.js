@@ -1,5 +1,7 @@
 import React from 'react';
+import './AutobahnApp.css';
 import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
 
 var autobahn = require('autobahn');
 
@@ -21,7 +23,10 @@ class AutobahnApp extends React.Component {
       connection: connection,
       status: 'Connecting',
       session: null,
+      signup: false
     };
+
+    this.show_signup_form = this.show_signup_form.bind(this);
 
     var that = this;
     connection.onopen = function(session) {
@@ -43,19 +48,34 @@ class AutobahnApp extends React.Component {
     this.setState({connected: true, status: "Connected", session: session});
   }
 
+  show_signup_form(event) {
+    event.preventDefault();
+    this.setState({signup: true});
+  }
+
   render() {
     if (this.state.session) {
+      if (this.state.signup) {
+        return (
+          <div className='autobahn-app connected'>
+            <h2>Nova plataforma de cotação de apólices</h2>
+            <SignUpForm session={this.state.session} parent={this} />
+          </div>
+        );
+      }
+
       return (
-        <div>
+        <div className='autobahn-app connected'>
+          <h2>Nova plataforma de cotação de apólices</h2>
           <LoginForm session={this.state.session} />
-          Status: <span className="status">{this.state.status}</span>
+          <small><a href='#' onClick={this.show_signup_form}>Sou novo aqui</a></small>
         </div>
       );
     }
 
     return (
-      <div>
-        Status: <span className="status">{this.state.status}</span>
+      <div className='autobahn-app disconnected'>
+        <h2>Nova plataforma de cotação de apólices</h2>
       </div>
     );
   }

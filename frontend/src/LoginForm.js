@@ -4,8 +4,13 @@ import React from 'react';
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    this.state = {username: '', password: '', session: props.session};
+    this.state = {
+      username: '',
+      password: '',
+      session: props.session,
+      status: '',
+      status2: ''
+    };
 
     this.on_change_username = this.on_change_username.bind(this);
     this.on_change_password = this.on_change_password.bind(this);
@@ -13,23 +18,34 @@ class LoginForm extends React.Component {
   }
 
   on_change_username(event) {
-    this.setState({username: event.target.value});
+    this.setState({username: event.target.value, status: ''});
   }
 
   on_change_password(event) {
-    this.setState({password: event.target.value});
+    this.setState({password: event.target.value, status: ''});
   }
 
   on_submit(event) {
-    console.log(this.state);
+    event.preventDefault();
+
     var session = this.state['session'];
     var username = this.state['username'];
     var password = this.state['password'];
 
+    var that = this;
+
     session.call('authenticate', [username, password]).then(function(response) {
-      console.log(response);
+      var message = response.kwargs.message;
+
+      that.setState({
+        status: "Sucesso!",
+        status2: "Token: " + message.token,
+      });
+    }).catch(function(error) {
+      var exc_type = error.kwargs.exc_type;
+      var msg = error.kwargs.message
+      that.setState({status: exc_type + ': ' + msg});
     });
-    event.preventDefault();
   }
 
   render() {
@@ -42,6 +58,8 @@ class LoginForm extends React.Component {
           <input type='password' name='password' value={this.state.password} onChange={this.on_change_password} /><br/>
           <input type='submit' name='submit' value='Entrar' />
         </form>
+        <div className='status'>{this.state.status}</div>
+        <div className='status2'>{this.state.status2}</div>
       </div>
     );
   }

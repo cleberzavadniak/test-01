@@ -21,8 +21,8 @@
                                         "subscribe": true
                                     },
                                     "disclose": {
-                                        "caller": true,
-                                        "publisher": true
+                                        "caller": false,
+                                        "publisher": false
                                     },
                                     "cache": false
                                 }

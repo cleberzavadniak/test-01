@@ -4,7 +4,7 @@ import AutobahnApp from './AutobahnApp';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <AutobahnApp />
     </div>
   );
