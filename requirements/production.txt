@@ -1,7 +1,6 @@
+autobahn
 cached_property
-crossbar
 dataset
 pbkdf2
 prettyconf
 psycopg2-binary
-wampy
